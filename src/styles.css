@@ -24,7 +24,7 @@ body {
   margin-top: 1rem;
   display: flex;
   align-items: center;
-  border-radius: 0.2rem;
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -40,20 +40,40 @@ body {
   padding: 0.7rem;
   background-color: green;
   color: white;
+  font-weight: 500;
   cursor: pointer;
   border: none;
 }
 
 .lists .todo {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    margin-top: 0.7rem;
-    padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  margin-top: 0.7rem;
+  padding: 0.5rem;
 }
 
 .todo span {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.todo-text {
+  outline: none;
+}
+
+.delete-all {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.delete-all-btn {
+  padding: 0.5rem 1rem;
+  background-color: red;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer
 }
