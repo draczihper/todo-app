@@ -4,7 +4,6 @@ const form = document.querySelector('[data-form]');
 const lists = document.querySelector('[data-lists]');
 const input = document.querySelector('[data-input]');
 
-
 // Store todos to localstorage
 class Storage {
     static addToStorage(todoArr) {
@@ -83,4 +82,3 @@ window.addEventListener('DOMContentLoaded', () => {
     DOM.displayTodo();
     DOM.removeTodo()
 });
-

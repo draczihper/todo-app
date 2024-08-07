@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true,
+    clean: false,
   },
   devtool: 'inline-source-map',
   plugins: [
@@ -15,7 +15,7 @@ module.exports = {
       template: "./src/index.html",
       filename: "index.html",
       scriptLoading: 'defer',
-      inject: 'body',
+      inject: 'body'
     }),
   ],
   module: {
