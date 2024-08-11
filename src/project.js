@@ -14,6 +14,8 @@ window.addEventListener('DOMContentLoaded', () => {
     DOM.editProject();
     DOM.deleteAll();
     DOM.hideBtn();
+    console.log(projectArr.length);
+    DOM.loadTodos();
 });
 
 
@@ -93,7 +95,7 @@ class DOM {
 
     static removeProjectFromArray(projectId) {
         projectArr = projectArr.filter((item) => item.projectId !== +projectId)
-        ProjectStorage.addProjectToStorage(projectArr)
+        ProjectStorage.addProjectToStorage(projectArr);
     }
 
     static editProject() {
@@ -135,6 +137,12 @@ class DOM {
         } else {
             deleteAllButton.style.display = "flex";
         }
+    }
+
+    static loadTodos() {
+        projects.addEventListener('click', (e) => {
+            // Load todos found in this clicked project and if there are no todos just keep showing the add todo button and add todos in this project if added 
+        });
     }
     
 }
