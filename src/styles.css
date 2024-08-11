@@ -15,12 +15,13 @@ body {
   margin: 2rem auto;
 }
 
-
-.project-container .title, .todo-container .title {
+.project-container .title,
+.todo-container .title {
   text-align: center;
 }
 
-.project-container form, .todo-container form {
+.project-container form,
+.todo-container form {
   background-color: #fff;
   margin-top: 1rem;
   display: flex;
@@ -29,7 +30,8 @@ body {
   overflow: hidden;
 }
 
-.project-form input, .todo-form input {
+.project-form input,
+.todo-form input {
   flex: 1;
   padding: 0.7rem;
   border: none;
@@ -37,7 +39,8 @@ body {
   outline: none;
 }
 
-.project-form .btn, .todo-form .btn {
+.project-form .btn,
+.todo-form .btn {
   padding: 0.7rem;
   background-color: green;
   color: white;
@@ -46,7 +49,8 @@ body {
   border: none;
 }
 
- .projects .project, .lists .todo {
+.projects .project,
+.lists .todo {
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -54,13 +58,20 @@ body {
   background-color: white;
   margin-top: 0.7rem;
   padding: 0.5rem;
-}
-
-.project span, .todo span {
   cursor: pointer;
 }
 
-.project-text, .todo-text {
+.projects .project:hover {
+  background-color: rgb(202, 202, 202);
+}
+
+.project span,
+.todo span {
+  cursor: pointer;
+}
+
+.project-text,
+.todo-text {
   outline: none;
 }
 
@@ -76,5 +87,5 @@ body {
   font-weight: 500;
   border: none;
   border-radius: 3px;
-  cursor: pointer
+  cursor: pointer;
 }
