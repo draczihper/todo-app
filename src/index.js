@@ -5,25 +5,42 @@ const lists = document.querySelector('[data-lists]');
 const input = document.querySelector('[data-input]');
 const deleteAllButton = document.querySelector('.delete-all-btn');
 
+// Load todos
+window.addEventListener('DOMContentLoaded', () => {
+    todoContainer.style.display = "none";
+    DOM.loadTodos();
+
+    /* DOM.displayTodo();
+    DOM.removeTodo();
+    DOM.editTodo();
+    DOM.deleteAll();
+    DOM.hideBtn(); */
+});
+
+
+
+
 // Store todos to localstorage
-class Storage {
-    static addToStorage(todoArr) {
-        let storage = localStorage.setItem('todo', JSON.stringify(todoArr));
+class TodoStorage {
+    static addTodosToStorage(projectId, todos) {
+        let storage = localStorage.setItem(`todos-${projectId}`, JSON.stringify(todos));
         return storage;
     }
     
-    static getStorage() {
-        let storage = localStorage.getItem('todo') === null ? [] : JSON.parse(localStorage.getItem('todo'));
+    static getTodosFromStorage(projectId) {
+        let storage = localStorage.getItem('todo') === null ? [] : JSON.parse(localStorage.getItem(`todos-${projectId}`));
         return storage;
     }
 }
 
 // Store todos
-let todoArr = Storage.getStorage();
+let todoArr = [];
+let currentProjectId = null;
 
 // On submit form
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (!currentProjectId) return;
     let id = Math.floor(Math.random() * 1000000)
     const todo = new Todo(id, input.value)
     todoArr = [...todoArr, todo];
@@ -32,7 +49,7 @@ form.addEventListener('submit', (e) => {
     // Remove todo from DOM
     DOM.removeTodo();
     // Add todo to storage
-    Storage.addToStorage(todoArr);
+    TodoStorage.addTodosToStorage(currentProjectId, todoArr);
     DOM.hideBtn();
 
 });
@@ -47,6 +64,19 @@ class Todo {
 
 // DOM display 
 class DOM {
+    static loadTodos() {
+        const projects = document.querySelector('[data-projects]');
+        projects.addEventListener('click', (e) => {
+            if (e.target.classList.contains('project-text')) {
+                currentProjectId = e.target.parentElement.querySelector('.remove').dataset.projectId;
+                todoArr = TodoStorage.getTodosFromStorage(currentProjectId);
+                this.displayTodo();
+                todoContainer.style.display = "block";
+                this.hideBtn();
+            }
+        });
+    }
+
     static displayTodo() {
         let displayTodo = todoArr.map(item => {
             return `
@@ -80,7 +110,7 @@ class DOM {
 
     static removeTodoFromArray(id) {
         todoArr = todoArr.filter((item) => item.id !== +id)
-        Storage.addToStorage(todoArr)
+        TodoStorage.addTodosToStorage(currentProjectId, todoArr)
     }
 
     static editTodo() {
@@ -100,7 +130,7 @@ class DOM {
                     p.removeAttribute("contenteditable");
                     const newTodoArr = todoArr.findIndex((item) => item.id === +btnId);
                     todoArr[newTodoArr].todo = p.textContent;
-                    Storage.addToStorage(todoArr);
+                    TodoStorage.addTodosToStorage(currentProjectId, todoArr);
                 }
             }
             iconChange = !iconChange
@@ -110,7 +140,7 @@ class DOM {
     static deleteAll() {
         deleteAllButton.addEventListener('click', () => {
             todoArr.length = 0;
-            localStorage.clear();
+            localStorage.removeItem(`todos-${currentProjectId}`);
             DOM.displayTodo();
             DOM.hideBtn();        
         });
@@ -126,15 +156,3 @@ class DOM {
     
 }
 
-// Load saved todos in localStorage when app is loaded
-window.addEventListener('DOMContentLoaded', () => {
-    DOM.displayTodo();
-    // Remove from the DOM
-    DOM.removeTodo();
-
-    DOM.editTodo();
-
-    DOM.deleteAll();
-
-    DOM.hideBtn();
-});
