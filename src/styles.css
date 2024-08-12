@@ -58,11 +58,6 @@ body {
   background-color: white;
   margin-top: 0.7rem;
   padding: 0.5rem;
-  cursor: pointer;
-}
-
-.projects .project:hover {
-  background-color: rgb(202, 202, 202);
 }
 
 .project span,
@@ -75,8 +70,18 @@ body {
   outline: none;
 }
 
+.icon .show {
+  border: 1px solid black;
+  padding: 0.1rem;
+  border-radius: 2px;
+}
+
+.icon .show:hover {
+  background-color: rgb(202, 202, 202);
+}
+
 .delete-all {
-  text-align: center;
+  /* text-align: center; */
   padding-top: 1rem;
 }
 
