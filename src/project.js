@@ -42,12 +42,12 @@ projectForm.addEventListener('submit', (e) => {
     let projectId = Math.floor(Math.random() * 1000)
     const project = new Project(projectId, projectInput.value)
     projectArr = [...projectArr, project];
+    ProjectStorage.addProjectToStorage(projectArr);
     DOM.displayProject();
     DOM.clearInput();
     // Remove todo from DOM
     DOM.removeProject();
     // Add todo to storage
-    ProjectStorage.addProjectToStorage(projectArr);
     DOM.hideBtn();
 
 });
@@ -70,6 +70,7 @@ class DOM {
         <div class="icon">
         <span class="remove" data-project-id=${item.projectId}>🗑️</span>
         <span class="edit" data-project-id=${item.projectId}>✏️</span>
+        <span class="show" data-project-id=${item.projectId}>Show Todos</span>
         </div>
       </div>
             `
@@ -146,5 +147,7 @@ class DOM {
     }
     
 }
+
+export default projectArr;
 
 
