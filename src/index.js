@@ -1,24 +1,42 @@
 import './styles.css';
+import projectArr from './project.js';
 
-const form = document.querySelector('[data-form]');
+const todoContainer = document.querySelector('.todo-container');
+const todoForm = document.querySelector('[data-todo-form]');
 const lists = document.querySelector('[data-lists]');
-const input = document.querySelector('[data-input]');
+const inputTitle = document.querySelector('[data-input-title]');
+const inputDueDate = document.querySelector('[data-input-due-date]');
+const selectPriority = document.querySelector('[data-select-priority]');
+const inputCheckbox = document.querySelector('[data-input-checklist]');
+const inputDescription = document.querySelector('[data-input-description]');
+const inputNotes = document.querySelector('[data-input-notes]');
 const deleteAllButton = document.querySelector('.delete-all-btn');
+
+let selectedValue = "low";
+
+selectPriority.addEventListener('change', function() {
+     selectedValue = this.value;
+});
+
+/* inputCheckbox.addEventListener('change', function () {
+    if(!this.checked) {
+        this.checked = true;
+    } else {
+        this.checked = false;
+    }
+}); */
 
 // Load todos
 window.addEventListener('DOMContentLoaded', () => {
     todoContainer.style.display = "none";
     DOM.loadTodos();
 
-    /* DOM.displayTodo();
+    DOM.displayTodo();
     DOM.removeTodo();
     DOM.editTodo();
     DOM.deleteAll();
-    DOM.hideBtn(); */
+    DOM.hideBtn();
 });
-
-
-
 
 // Store todos to localstorage
 class TodoStorage {
@@ -28,23 +46,24 @@ class TodoStorage {
     }
     
     static getTodosFromStorage(projectId) {
-        let storage = localStorage.getItem('todo') === null ? [] : JSON.parse(localStorage.getItem(`todos-${projectId}`));
+        let storage = localStorage.getItem(`todos-${projectId}`) === null ? [] : JSON.parse(localStorage.getItem(`todos-${projectId}`));
         return storage;
     }
 }
 
 // Store todos
-let todoArr = [];
 let currentProjectId = null;
+let todoArr = TodoStorage.getTodosFromStorage(currentProjectId);
 
 // On submit form
-form.addEventListener('submit', (e) => {
+todoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!currentProjectId) return;
     let id = Math.floor(Math.random() * 1000000)
-    const todo = new Todo(id, input.value)
+    const todo = new Todo(id, inputTitle.value, inputDueDate.value, selectedValue, inputDescription.value, inputNotes.value)
     todoArr = [...todoArr, todo];
     DOM.displayTodo();
+    DOM.displayDetails();
     DOM.clearInput();
     // Remove todo from DOM
     DOM.removeTodo();
@@ -56,35 +75,71 @@ form.addEventListener('submit', (e) => {
 
 // OOP Todo
 class Todo {
-    constructor(id, todo){
+    constructor(id, todo, dueDate, priority, checklist, description, notes){
         this.id = id;
         this.todo = todo;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.description = description;
+        this.notes = notes;
     }
 }
 
 // DOM display 
 class DOM {
     static loadTodos() {
-        const projects = document.querySelector('[data-projects]');
-        projects.addEventListener('click', (e) => {
-            if (e.target.classList.contains('project-text')) {
-                currentProjectId = e.target.parentElement.querySelector('.remove').dataset.projectId;
-                todoArr = TodoStorage.getTodosFromStorage(currentProjectId);
-                this.displayTodo();
-                todoContainer.style.display = "block";
-                this.hideBtn();
-            }
+        const showTodoBtn = document.querySelectorAll('.show');
+        console.log(projectArr);
+        showTodoBtn.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                if (e.target.classList.contains('show')) {
+                    currentProjectId = e.target.dataset.projectId;
+                    todoArr = TodoStorage.getTodosFromStorage(currentProjectId);
+                    this.displayTodo();
+                    todoContainer.style.display = "block";
+                    this.hideBtn();
+                }
+            });
+        });
+    }
+
+    static displayDetails() {
+        const showDetailsBtn = document.querySelectorAll('.show-details');
+        showDetailsBtn.forEach(item => {
+            item.addEventListener('click', (e) => {
+                console.log('clicked')
+                if (e.target.classList.contains('show-details')) {
+                    let displayDetails = todoArr.map(item => {
+                        return `<div class="todo-details">
+                        <p class="todo-text">${item.description}</p>
+                        <p class="todo-text">${item.notes}</p>
+                        <div class="icon">
+        <span class="remove" data-id=${item.id}>🗑️</span>
+        <span class="edit" data-id=${item.id}>✏️</span>
+        </div>
+        </div>
+                        `
+                    });
+                    document.querySelector('.todo').appendChild(displayDetails);
+                }
+            });
         });
     }
 
     static displayTodo() {
-        let displayTodo = todoArr.map(item => {
-            return `
+        let displayTodo = todoArr.map((item) => {
+        return `
             <div class="todo">
         <p class="todo-text">${item.todo}</p>
+        <p class="todo-text">${item.dueDate}</p>
+        <p class="todo-text">${item.priority}</p>
+        <input
+        type="checkbox"
+        placeholder="" />
         <div class="icon">
         <span class="remove" data-id=${item.id}>🗑️</span>
         <span class="edit" data-id=${item.id}>✏️</span>
+        <span class="show-details" data-id=${item.id}>Show Details</span>
         </div>
       </div>
             `
@@ -93,7 +148,8 @@ class DOM {
     }
 
     static clearInput() {
-        input.value = "";
+        inputTitle.value = "";
+        inputDueDate.value = "";
     }
 
     static removeTodo() {
