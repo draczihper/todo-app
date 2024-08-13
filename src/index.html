@@ -28,23 +28,33 @@
       <!---End of project container ---->
       <div class="todo-container" data-todo-container="">
         <h1 class="title">Todo List</h1>
+        <div>
         <form class="todo-form" data-todo-form="">
-          <input type="text" placeholder="Todo..." data-input="" />
-         <!--- <input
-            type="text"
-            placeholder="Description..."
-            data-input-description=""
-          />
-           <input type="date" data-input-due-date="" />
-          <input type="text" placeholder="Priority..." data-input-priority="" />
-          <input type="text" placeholder="Notes..." data-input-notes="" />
-          <input
-            type="checkbox"
-            placeholder="Checklist..."
-            data-input-checklist=""
-          /> -->
-          <button class="btn">Add</button>
-        </form>
+          <input type="text" placeholder="Todo..." data-input-title="" />
+          <input type="date" data-input-due-date="" />
+           <select name="priority" id="priority" data-select-priority="">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+           </select>
+           <input
+             type="checkbox"
+             placeholder=""
+             data-input-checklist=""
+           />
+           <button class="btn">Add</button>
+          </form>
+          <div class="details">
+          <form class="todo-form">
+                     <input
+             type="text"
+             placeholder="Description..."
+             data-input-description=""
+                     />
+                     <input type="text" placeholder="Notes..." data-input-notes="" />
+          </form>
+       </div>
+      </div>
         <div class="lists" data-lists=""></div>
         <div class="delete-all">
           <button class="delete-all-btn">Delete All</button>
