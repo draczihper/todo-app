@@ -70,13 +70,13 @@ body {
   outline: none;
 }
 
-.icon .show {
+.icon .show, .icon .show-details {
   border: 1px solid black;
   padding: 0.1rem;
   border-radius: 2px;
 }
 
-.icon .show:hover {
+.icon .show:hover, .icon .show-details:hover {
   background-color: rgb(202, 202, 202);
 }
 
