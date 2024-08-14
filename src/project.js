@@ -15,7 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
     DOM.deleteAll();
     DOM.hideBtn();
     console.log(projectArr.length);
-    DOM.loadTodos();
 });
 
 
@@ -49,7 +48,7 @@ projectForm.addEventListener('submit', (e) => {
     DOM.removeProject();
     // Add todo to storage
     DOM.hideBtn();
-
+    DOM.loadTodos();
 });
 
 // OOP Project
@@ -76,6 +75,7 @@ class DOM {
             `
         });
         projects.innerHTML = (displayProject).join(" ");
+        this.loadTodos();
     }
 
     static clearInput() {
@@ -138,12 +138,6 @@ class DOM {
         } else {
             deleteAllButton.style.display = "flex";
         }
-    }
-
-    static loadTodos() {
-        projects.addEventListener('click', (e) => {
-            // Load todos found in this clicked project and if there are no todos just keep showing the add todo button and add todos in this project if added 
-        });
     }
     
 }
