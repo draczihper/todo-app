@@ -49,8 +49,10 @@ body {
   border: none;
 }
 
+
 .projects .project,
 .lists .todo {
+  width: 30rem;
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -59,6 +61,33 @@ body {
   margin-top: 0.7rem;
   padding: 0.5rem;
 }
+
+.lists .todo {
+  display: block;
+}
+
+.todo-text-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-text-container > .text-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.todo-text-container > div > p:first-child {
+  width: 9rem;
+}
+
+.todo-details {
+  margin-top: 0.5rem;
+}
+
+.todo-details p {
+  margin-top: .2rem;
+}
+
 
 .project span,
 .todo span {
