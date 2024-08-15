@@ -1,27 +1,67 @@
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Todo app</title>
-	<link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>'>
-</head>
-<body>
-	<div class="container">
-		<h1 class="title">Todo List</h1>
-		<form class="form" data-form="">
-			<input type="text" placeholder="Todo..." data-input="">
-			<button class="btn">Add</button>
-		</form>
-		<div class="lists" data-lists="">
-	  <!-- <div class="todo">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio quibusdam expedita blanditiis debitis id saepe repudiandae incidunt officiis quis hic!
-        </p>
-          <span>🗑️</span>
-      </div> -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo app</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>"
+    />
+  </head>
+  <body>
+    <div class="main-container" data-main-container="">
+      <div class="project-container">
+        <h1>Create Project</h1>
+        <form class="project-form" data-project-form="">
+          <input
+            type="text"
+            placeholder="Todo Project Title..."
+            data-project-input=""
+          />
+          <button class="btn">Create Project</button>
+        </form>
+        <div class="projects" data-projects=""></div>
+        <div class="delete-all">
+          <button class="delete-all-btn">Delete All</button>
+        </div>
+      </div>
+      <!---End of project container ---->
+      <div class="todo-container" data-todo-container="">
+        <h1 class="title">Todo List</h1>
+        <div>
+        <form class="todo-form" data-todo-form="">
+          <input type="text" placeholder="Todo..." data-input-title="" />
+          <input type="date" data-input-due-date="" />
+           <select name="priority" id="priority" data-select-priority="">
+            <option value="High" style="color:red;">High</option>
+            <option value="Medium" style="color: orange;">Medium</option>
+            <option value="Low" style="color: green;">Low</option>
+           </select>
+           <input
+             type="checkbox"
+             placeholder=""
+             data-input-checklist=""
+           />
+           <button class="btn">Add</button>
+          </form>
+          <div class="details">
+          <form class="todo-form">
+                     <input
+             type="text"
+             placeholder="Description..."
+             data-input-description=""
+                     />
+                     <input type="text" placeholder="Notes..." data-input-notes="" />
+          </form>
+       </div>
+      </div>
+        <div class="lists" data-lists=""></div>
+        <div class="delete-all">
+          <button class="delete-all-btn">Delete All</button>
+        </div>
+      </div>
+      <!---End of todo cointainer ---->
     </div>
-	<div class="delete-all">
-		<button class="delete-all-btn">Delete All</button>
-	</div>
-	</div>
-<script defer src="main.js"></script></body>
+    <!---End of main container-->
+  <script type="module" src="main.js"></script></body>
 </html>
